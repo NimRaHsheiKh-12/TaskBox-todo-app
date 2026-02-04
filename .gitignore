@@ -70,3 +70,4 @@ config.local
 node_modules/
 .next/
 dist/
+.env.local

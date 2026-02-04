@@ -62,12 +62,19 @@ description: "Task list template for feature implementation"
 
 Examples of foundational tasks (adjust based on your project):
 
-- [ ] T004 Setup database schema and migrations framework
-- [ ] T005 [P] Implement authentication/authorization framework
-- [ ] T006 [P] Setup API routing and middleware structure
-- [ ] T007 Create base models/entities that all stories depend on
+- [ ] T004 Setup database schema and migrations framework with user and task models
+- [ ] T005 [P] Implement JWT-based authentication/authorization framework (Constitution: Identity & Personality)
+- [ ] T006 [P] Setup API routing and middleware structure with authentication enforcement
+- [ ] T007 Create base task model with all required fields (id, user_id, title, description, is_completed, priority, category, due_date, created_at, updated_at) (Constitution: Task Data Model)
 - [ ] T008 Configure error handling and logging infrastructure
 - [ ] T009 Setup environment configuration management
+- [ ] T010 Implement user-scoped data access controls (Constitution: Task Ownership)
+- [ ] T011 Setup input validation framework for backend (Constitution: Additional Constraints)
+- [ ] T012 Implement Taskie personality layer for user interactions (Constitution: Identity & Personality)
+- [ ] T013 Create emoji utility module for Taskie's friendly interactions (Constitution: Identity & Personality)
+- [ ] T014 Implement floating chatbot UI component for dashboard page (Constitution: Frontend Integration Requirements)
+- [ ] T015 Ensure chatbot communicates with backend ONLY through existing /chat endpoint (Constitution: Frontend Integration Requirements)
+- [ ] T016 Verify dashboard and existing todo functionality remain unchanged during integration (Constitution: Frontend Integration Requirements)
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 

@@ -1,37 +1,28 @@
-# Use an official Node runtime as a parent image
+# ---------- Builder stage ----------
 FROM node:18-alpine AS builder
 
-# Set working directory
 WORKDIR /app
 
-# Copy package files
 COPY package*.json ./
-
-# Install dependencies
 RUN npm ci
 
-# Copy the rest of the application code
 COPY . .
-
-# Build the application
 RUN npm run build
 
-# Production stage
-FROM node:18-alpine AS production
 
-# Install serve to serve the static files
-RUN npm install -g serve
+# ---------- Production stage ----------
+FROM node:18-alpine AS runner
 
-# Set working directory
 WORKDIR /app
 
-# Copy the build output from the previous stage
+ENV NODE_ENV=production
+
+# Copy standalone output
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
 
-# Expose port
 EXPOSE 3000
 
-# Run the application
-CMD ["serve", "-s", ".", "-l", "3000"]
+# IMPORTANT: run Next.js server, not serve
+CMD ["node", "server.js"]

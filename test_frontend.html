@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Taskie Chat Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .message { margin: 10px 0; padding: 10px; border-radius: 5px; }
+        .user { background-color: #d1ecf1; }
+        .bot { background-color: #d4edda; }
+        .input-area { margin-top: 20px; }
+        input[type="text"] { width: 300px; padding: 5px; }
+        button { padding: 5px 10px; }
+    </style>
+</head>
+<body>
+    <h1>Taskie Chat Test</h1>
+    <div id="chat-container"></div>
+    <div class="input-area">
+        <input type="text" id="message-input" placeholder="Type your message here...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://127.0.0.1:8001';
+        let currentTasks = [];
+
+        function addMessage(sender, text) {
+            const container = document.getElementById('chat-container');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            messageDiv.innerHTML = `<strong>${sender.toUpperCase()}:</strong> ${text}`;
+            container.appendChild(messageDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('message-input');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // Add user message
+            addMessage('user', message);
+            input.value = '';
+            
+            try {
+                // Call the public chat endpoint
+                const response = await fetch(`${API_BASE_URL}/chat/public`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: message,
+                        user_id: 'test_user',
+                        current_tasks: currentTasks
+                    })
+                });
+                
+                const data = await response.json();
+                
+                // Add bot response
+                addMessage('bot', data.reply);
+                
+                // Note: In a real implementation, we would update currentTasks based on the response
+                // The backend returns more data in the /process endpoint, but the /public endpoint
+                // only returns the reply for simplicity
+            } catch (error) {
+                console.error('Error sending message:', error);
+                addMessage('bot', 'Sorry, I had trouble connecting. Please try again.');
+            }
+        }
+
+        // Allow sending message with Enter key
+        document.getElementById('message-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Add welcome message
+        window.onload = function() {
+            addMessage('bot', "Hey there! I'm Taskie, your friendly task assistant! 😊 I can help you add, view, update, complete, or delete tasks. Just tell me what you'd like to do!");
+        };
+    </script>
+</body>
+</html>
