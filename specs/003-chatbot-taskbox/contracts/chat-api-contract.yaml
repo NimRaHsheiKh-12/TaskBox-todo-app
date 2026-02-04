@@ -1,0 +1,138 @@
+# API Contracts: TaskBox Chatbot Assistant
+
+## Overview
+This document defines the API contracts for the TaskBox Chatbot Assistant (Taskie), which enables users to interact with their todo list through a conversational interface.
+
+## Endpoints
+
+### 1. Process Chat Message
+- **Endpoint**: `POST /api/chat/process`
+- **Description**: Processes a user's chat message and performs appropriate action on their tasks
+- **Request**:
+  ```json
+  {
+    "user_id": "string",
+    "message": "string",
+    "current_tasks": [
+      {
+        "id": "uuid",
+        "title": "string",
+        "description": "string",
+        "is_completed": "boolean",
+        "priority": "Low | Medium | High",
+        "category": "Work | Personal | Study | Custom",
+        "due_date": "date"
+      }
+    ]
+  }
+  ```
+- **Response**:
+  ```json
+  {
+    "reply": "string",
+    "action_performed": "CREATE | READ | UPDATE | DELETE | COMPLETE | NONE",
+    "updated_tasks": [
+      {
+        "id": "uuid",
+        "title": "string",
+        "description": "string",
+        "is_completed": "boolean",
+        "priority": "Low | Medium | High",
+        "category": "Work | Personal | Study | Custom",
+        "due_date": "date",
+        "created_at": "timestamp",
+        "updated_at": "timestamp"
+      }
+    ],
+    "success": "boolean"
+  }
+  ```
+- **Errors**:
+  - 400: Invalid request format
+  - 401: Unauthorized access
+  - 500: Internal server error
+
+### 2. Get Chat History
+- **Endpoint**: `GET /api/chat/history/{user_id}`
+- **Description**: Retrieves the chat history for a specific user
+- **Request**: None (user_id in path)
+- **Response**:
+  ```json
+  {
+    "history": [
+      {
+        "id": "uuid",
+        "user_message": "string",
+        "chatbot_reply": "string",
+        "timestamp": "datetime",
+        "associated_task_id": "uuid"
+      }
+    ]
+  }
+  ```
+- **Errors**:
+  - 401: Unauthorized access
+  - 404: User not found
+  - 500: Internal server error
+
+### 3. Initialize Chat Session
+- **Endpoint**: `POST /api/chat/session`
+- **Description**: Initializes a new chat session for a user
+- **Request**:
+  ```json
+  {
+    "user_id": "string"
+  }
+  ```
+- **Response**:
+  ```json
+  {
+    "session_id": "uuid",
+    "welcome_message": "string",
+    "current_tasks_count": "integer",
+    "success": "boolean"
+  }
+  ```
+- **Errors**:
+  - 400: Invalid request format
+  - 401: Unauthorized access
+  - 500: Internal server error
+
+### 4. End Chat Session
+- **Endpoint**: `DELETE /api/chat/session/{session_id}`
+- **Description**: Ends an active chat session
+- **Request**: None (session_id in path)
+- **Response**:
+  ```json
+  {
+    "message": "Session ended successfully",
+    "success": "boolean"
+  }
+  ```
+- **Errors**:
+  - 401: Unauthorized access
+  - 404: Session not found
+  - 500: Internal server error
+
+## Common Error Response Format
+```json
+{
+  "error": {
+    "code": "string",
+    "message": "string",
+    "details": "object"
+  },
+  "success": false
+}
+```
+
+## Authentication
+All endpoints require authentication using JWT tokens sent in the Authorization header:
+```
+Authorization: Bearer <jwt_token>
+```
+
+## Rate Limiting
+All endpoints are subject to rate limiting to prevent abuse:
+- 100 requests per hour per user
+- 10 requests per minute per IP address

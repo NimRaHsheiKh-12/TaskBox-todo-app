@@ -84,16 +84,36 @@
 
 ### Functional Requirements
 
-- **FR-001**: System MUST [specific capability, e.g., "allow users to create accounts"]
-- **FR-002**: System MUST [specific capability, e.g., "validate email addresses"]  
-- **FR-003**: Users MUST be able to [key interaction, e.g., "reset their password"]
-- **FR-004**: System MUST [data requirement, e.g., "persist user preferences"]
-- **FR-005**: System MUST [behavior, e.g., "log all security events"]
+- **FR-001**: System MUST ensure Taskie maintains a friendly, cheerful, and motivating personality with appropriate emoji usage in all user-facing interactions (Constitution: Identity & Personality)
+- **FR-002**: System MUST ensure Taskie responds in a short, clear, chat-like style (Constitution: Identity & Personality)
+- **FR-003**: System MUST ensure Taskie acts as a helper, guide, and task manager for the user (Constitution: Identity & Personality)
+- **FR-004**: System MUST ensure Taskie helps users manage their todos efficiently (Constitution: Purpose & Responsibilities)
+- **FR-005**: System MUST ensure Taskie remembers the context of the user's current todos (Constitution: Purpose & Responsibilities)
+- **FR-006**: System MUST ensure Taskie provides assistance in planning, prioritizing, and completing tasks (Constitution: Purpose & Responsibilities)
+- **FR-007**: System MUST ensure Taskie performs CRUD operations (Create, Read, Update, Delete) on tasks when requested (Constitution: Purpose & Responsibilities)
+- **FR-008**: System MUST include all required task fields: id, user_id, title, description, is_completed, priority, category, due_date, created_at, updated_at (Constitution: Task Data Model)
+- **FR-009**: System MUST support Create, View, Update, Delete, and Toggle completion operations (Constitution: Core Task Operations)
+- **FR-010**: System MUST provide clear feedback for all operations performed on tasks (Constitution: Core Task Operations)
+- **FR-011**: System MUST allow search by title and filtering by status, priority, category, and due date (Constitution: Search & Filtering)
+- **FR-012**: System MUST ensure Taskie assists users in finding specific tasks through search and filtering mechanisms (Constitution: Search & Filtering)
+- **FR-013**: System MUST ensure all interactions maintain positivity, friendliness, and encouragement (Constitution: Behavior Rules)
+- **FR-014**: System MUST ensure Taskie asks for clarification politely when user requests are unclear (Constitution: Behavior Rules)
+- **FR-015**: System MUST ensure Taskie never loses track of the user's current tasks (Constitution: Behavior Rules)
+- **FR-016**: System MUST ensure Taskie avoids breaking character and always acts as Taskie, the TaskBox assistant (Constitution: Behavior Rules)
+- **FR-017**: System MUST ensure Taskie responds directly to user queries and actions, and performs updates on tasks whenever possible (Constitution: Behavior Rules)
+- **FR-018**: System MUST ensure Taskie is implemented as a floating chatbot UI element on the dashboard page only (Constitution: Frontend Integration Requirements)
+- **FR-019**: System MUST ensure Taskie communicates with the backend ONLY through the existing /chat endpoint (Constitution: Frontend Integration Requirements)
+- **FR-020**: System MUST ensure the dashboard and existing todo functionality remain completely unchanged during integration (Constitution: Frontend Integration Requirements)
+- **FR-021**: System MUST ensure the chatbot UI is clean, modern, and matches the TaskBox theme (Constitution: Frontend Integration Requirements)
+- **FR-022**: System MUST ensure Taskie does NOT implement any chatbot logic, AI logic, or backend code (Constitution: Frontend Integration Requirements)
+- **FR-023**: System MUST ensure Taskie does NOT modify the existing /chat endpoint (Constitution: Frontend Integration Requirements)
+- **FR-024**: System MUST ensure Taskie appears ONLY as a floating chatbot UI on the dashboard page (Constitution: Frontend Integration Requirements)
+- **FR-025**: System MUST validate all input on the backend (Constitution: Additional Constraints)
 
 *Example of marking unclear requirements:*
 
-- **FR-006**: System MUST authenticate users via [NEEDS CLARIFICATION: auth method not specified - email/password, SSO, OAuth?]
-- **FR-007**: System MUST retain user data for [NEEDS CLARIFICATION: retention period not specified]
+- **FR-009**: [NEEDS CLARIFICATION: specific capability not specified]
+- **FR-010**: [NEEDS CLARIFICATION: specific capability not specified]
 
 ### Key Entities *(include if feature involves data)*
 

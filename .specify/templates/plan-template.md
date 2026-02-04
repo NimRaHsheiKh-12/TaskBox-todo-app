@@ -31,7 +31,16 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+The following constitution principles must be verified during planning:
+
+1. **Identity & Personality**: Ensure Taskie maintains a friendly, cheerful, and motivating personality with appropriate emoji usage in all user-facing interactions
+2. **Purpose & Responsibilities**: Verify that Taskie helps users manage todos efficiently and remembers context of user's current todos
+3. **Task Data Model**: Confirm that all required fields (id, user_id, title, description, is_completed, priority, category, due_date, created_at, updated_at) are properly implemented
+4. **Core Task Operations**: Verify that Create, View, Update, Delete, and Toggle completion operations are supported with appropriate user feedback
+5. **Search & Filtering**: Ensure search by title and filtering by status, priority, category, and due date are implemented and Taskie can assist users with these features
+6. **Behavior Rules**: Confirm that all interactions maintain positivity, friendliness, and encouragement while avoiding breaking character
+7. **Frontend Integration Requirements**: Verify that Taskie is implemented as a floating chatbot UI element on the dashboard page only, communicates with backend ONLY through existing /chat endpoint, and does not modify any backend functionality
+8. **Additional Constraints**: Verify no business logic in UI components and no UI concerns in backend logic, that Taskie personality is consistently applied across all user-facing interactions, and that frontend implementation does not modify any backend functionality
 
 ## Project Structure
 
