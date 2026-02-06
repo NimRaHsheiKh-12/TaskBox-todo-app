@@ -70,3 +70,7 @@ config.local
 node_modules/
 .next/
 dist/
+<<<<<<< HEAD
+=======
+.env.local
+>>>>>>> 003-chatbot-taskbox
