@@ -1,37 +1,39 @@
-# Use an official Node runtime as a parent image
-FROM node:18-alpine AS builder
+# Use a specific version of Node.js for consistency
+FROM node:18.17.0-alpine AS builder
 
 # Set working directory
 WORKDIR /app
 
+# Install build dependencies
+RUN apk add --no-cache python3 make g++
+
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies
-RUN npm ci
+# Install dependencies (including devDependencies for building)
+RUN npm install
 
-# Copy the rest of the application code
-COPY . .
+# Copy source code
+COPY . ./
 
 # Build the application
 RUN npm run build
 
 # Production stage
-FROM node:18-alpine AS production
+FROM nginx:1.25-alpine
 
-# Install serve to serve the static files
-RUN npm install -g serve
+# Copy built assets from builder stage
+COPY --from=builder /app/out /usr/share/nginx/html
 
-# Set working directory
-WORKDIR /app
-
-# Copy the build output from the previous stage
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
-COPY --from=builder /app/public ./public
+# Copy custom nginx configuration
+COPY nginx.conf /etc/nginx/nginx.conf
 
 # Expose port
-EXPOSE 3000
+EXPOSE 80
 
-# Run the application
-CMD ["serve", "-s", ".", "-l", "3000"]
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost/ || exit 1
+
+# Run nginx
+CMD ["nginx", "-g", "daemon off;"]

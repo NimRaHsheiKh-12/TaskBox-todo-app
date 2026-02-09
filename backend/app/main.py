@@ -6,12 +6,12 @@ from slowapi.errors import RateLimitExceeded
 import time
 
 # Absolute imports from app folder
-from app.config import settings
-from app.middleware.error_handler import http_exception_handler, general_exception_handler
-from app.middleware.rate_limiter import check_rate_limit
-from app.api import auth, todo, chat
-from app.database.database import create_db_and_tables
-from app.utils.logging import logger, log_security_event
+from .config import settings
+from .middleware.error_handler import http_exception_handler, general_exception_handler
+from .middleware.rate_limiter import check_rate_limit
+from .api import auth, todo, chat
+from .database.database import create_db_and_tables
+from .utils.logging import logger, log_security_event
 
 # ---------------------------
 # Create FastAPI app instance
